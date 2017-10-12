@@ -1576,7 +1576,9 @@ import typequals.*;
     Invariant guardingPredicate = null;
     for (VarInfo vi : mustBeGuarded) {
       Invariant currentGuard = vi.createGuardingPredicate(install);
-      if (currentGuard == null) continue;
+      if (currentGuard == null) {
+        continue;
+      }
       debugGuarding.fine(String.format("VarInfo %s guard is %s", vi, currentGuard));
       if (guardingPredicate == null) {
         guardingPredicate = currentGuard;

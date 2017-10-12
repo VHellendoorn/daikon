@@ -462,7 +462,9 @@ public class Quantify {
         conditions = new StringBuffer();
         for (int i = 0; i < qrets.length; i++) {
           Term idx = qrets[i].index;
-          if (idx == null) continue;
+          if (idx == null) {
+            continue;
+          }
           VarInfo vi = qrets[i].var;
           Term low = vi.get_lower_bound();
           Term high = vi.get_upper_bound();
@@ -531,7 +533,9 @@ public class Quantify {
         // Term[] boundv = qret.bound_vars.get(i);
         // Term idx_var = boundv[0];
         QuantifyReturn qret = qrets[i];
-        if (qret.index == null) continue;
+        if (qret.index == null) {
+          continue;
+        }
         String idx_var_name = qret.index.simplify_name();
         String lower_bound = qret.var.get_lower_bound().simplify_name();
         String idx_expr = "(- " + idx_var_name + " " + lower_bound + ")";

@@ -78,8 +78,8 @@ public final class Daikon {
    */
   public static int dkconfig_progress_delay = 1000;
 
-  public static final String release_version = "5.5.13";
-  public static final String release_date = "September 5, 2017";
+  public static final String release_version = "5.5.15";
+  public static final String release_date = "October 3, 2017";
   public static final String release_string =
       "Daikon version "
           + release_version
@@ -1590,7 +1590,9 @@ public final class Daikon {
 
     for (PptTopLevel ppt : ppts.pptIterable()) {
       // skip unless it's an EXITnn
-      if (!ppt.is_subexit()) continue;
+      if (!ppt.is_subexit()) {
+        continue;
+      }
 
       PptTopLevel exitnn_ppt = ppt;
       PptName exitnn_name = exitnn_ppt.ppt_name;
@@ -1717,7 +1719,9 @@ public final class Daikon {
       for (int k = 0; k < entry_ppt.num_declvars; k++) {
         VarInfo vi = entry_ppt_vis[k];
         assert !vi.isDerived() : "Derived when making orig(): " + vi.name();
-        if (vi.isStaticConstant()) continue;
+        if (vi.isStaticConstant()) {
+          continue;
+        }
         VarInfo origvar = VarInfo.origVarInfo(vi);
         // Fix comparability
         VarInfo postvar = exit_ppt.find_var_by_name(vi.name());
@@ -1846,9 +1850,6 @@ public final class Daikon {
    * two return statements are enabled by default (though other splitters can be defined by the
    * user).
    */
-  // TODO: When Checker Framework issue 752 is fixed, remove this
-  // @SuppressWarnings and address the type checking error issued
-  // for the call to SplitterFactory.load_splitters.
   @SuppressWarnings("contracts.precondition.not.satisfied")
   public static void setup_splitters(PptTopLevel ppt) {
     if (PptSplitter.dkconfig_disable_splitting) {
@@ -2181,7 +2182,9 @@ public final class Daikon {
     int ppt_w_sample_cnt = 0;
     for (PptTopLevel ppt : all_ppts.pptIterable()) {
       all_ppt_cnt++;
-      if (ppt.num_samples() == 0) continue;
+      if (ppt.num_samples() == 0) {
+        continue;
+      }
       ppt_w_sample_cnt++;
       System.out.printf("%s%n", ppt.name());
       System.out.printf("  samples    = %n%d", ppt.num_samples());
@@ -2189,7 +2192,9 @@ public final class Daikon {
       Map<ProglangType, Count> type_map = new LinkedHashMap<ProglangType, Count>();
       int leader_cnt = 0;
       for (VarInfo v : ppt.var_infos) {
-        if (!v.isCanonical()) continue;
+        if (!v.isCanonical()) {
+          continue;
+        }
         leader_cnt++;
         Count cnt = type_map.get(v.file_rep_type);
         if (cnt == null) type_map.put(v.file_rep_type, cnt = new Count(0));
@@ -2334,8 +2339,13 @@ public final class Daikon {
 
         // Read each ppt name from the file
         for (String line = fp.readLine(); line != null; line = fp.readLine()) {
-          if (line.equals("") || FileIO.isComment(line)) continue;
-          if (!line.equals("DECLARE")) continue;
+          if (line.equals("") || FileIO.isComment(line)) {
+            continue;
+          }
+          if (!line.equals("DECLARE")) {
+            continue;
+          }
+          // Just read "DECLARE", so next line has ppt name.
           String ppt_name = fp.readLine();
           if (ppt_name == null) {
             throw new Daikon.TerminationMessage("File " + file + " terminated prematurely");
