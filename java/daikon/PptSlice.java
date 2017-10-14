@@ -77,6 +77,7 @@ public abstract class PptSlice extends Ppt {
   }
 
   /*@SideEffectFree*/
+  @Override
   @SuppressWarnings(
       "initialization:override.receiver.invalid") // see comment on overridden definition in Ppt
   public final String name(
@@ -215,6 +216,7 @@ public abstract class PptSlice extends Ppt {
    */
   public static final class ArityVarnameComparator implements Comparator<PptSlice> {
     /*@Pure*/
+    @Override
     public int compare(PptSlice slice1, PptSlice slice2) {
       if (slice1 == slice2) return 0;
       // Don't do this assert, which prevents comparison across different Ppts.
@@ -233,6 +235,7 @@ public abstract class PptSlice extends Ppt {
    */
   public static final class ArityPptnameComparator implements Comparator<PptSlice> {
     /*@Pure*/
+    @Override
     public int compare(PptSlice slice1, PptSlice slice2) {
       if (slice1 == slice2) return 0;
       // Don't do this, to permit comparison across different Ppts.
@@ -315,6 +318,7 @@ public abstract class PptSlice extends Ppt {
   }
 
   /** For debugging only. */
+  @Override
   @SuppressWarnings("purity") // string creation
   /*@SideEffectFree*/
   public String toString(/*>>>@GuardSatisfied PptSlice this*/) {

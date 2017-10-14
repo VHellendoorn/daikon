@@ -158,6 +158,7 @@ public class PptTopLevel extends Ppt {
   public final PptName ppt_name;
 
   /*@Pure*/
+  @Override
   public String name(
       /*>>>@GuardSatisfied @UnknownInitialization(PptTopLevel.class) @Raw(PptTopLevel.class) PptTopLevel this*/) {
     return name;
@@ -208,6 +209,7 @@ public class PptTopLevel extends Ppt {
     /*@NonNegative*/ int splitter_index = 0;
     /*@IndexOrHigh("splitters.get(splitter_index)")*/ int ppts_index = 0;
 
+    @Override
     @SuppressWarnings(
         "flowexpr.parse.error") // Checker Framework bug: splitters is a field in this class
     /*@EnsuresNonNullIf(result=true, expression="splitters")*/
@@ -221,6 +223,7 @@ public class PptTopLevel extends Ppt {
       return true;
     }
 
+    @Override
     public PptConditional next() {
 
       if (!hasNext()) {
@@ -239,6 +242,7 @@ public class PptTopLevel extends Ppt {
       return ppt;
     }
 
+    @Override
     public void remove() {
       throw new UnsupportedOperationException("Remove unsupported in CondIterator");
     }
@@ -447,11 +451,13 @@ public class PptTopLevel extends Ppt {
 
   /** Returns the full name of the ppt */
   /*@SideEffectFree*/
+  @Override
   public String toString(/*>>>@GuardSatisfied PptTopLevel this*/) {
     return name();
   }
 
   /** Trim the collections used here, in hopes of saving space. */
+  @Override
   public void trimToSize() {
     super.trimToSize();
     if (splitters != null) {
@@ -2731,6 +2737,7 @@ public class PptTopLevel extends Ppt {
       markImpliedViaSimplify_int(
           all_ppts,
           new SimplifyInclusionTester() {
+            @Override
             public boolean include(Invariant inv) {
               return InvariantFilters.defaultFilters().shouldKeep(inv) == null;
             }
@@ -3134,10 +3141,12 @@ public class PptTopLevel extends Ppt {
       implication_iterator = ppt.joiner_view.invs.iterator();
     }
 
+    @Override
     public boolean hasNext() {
       return (vitor.hasNext() || (implication_iterator != null));
     }
 
+    @Override
     public Iterator<Invariant> next() {
       if (vitor.hasNext()) {
         return vitor.next().invs.iterator();
@@ -3151,6 +3160,7 @@ public class PptTopLevel extends Ppt {
       }
     }
 
+    @Override
     public void remove() {
       throw new UnsupportedOperationException();
     }
@@ -4093,7 +4103,7 @@ public class PptTopLevel extends Ppt {
         invEquals = SeqSeqFloatEqual.get_proto().instantiate(newSlice);
       }
     } else {
-      throw new Error("No known Comparison invariant to convert equality into");
+      throw new Error("No known EqualityComparison invariant to convert equality into");
     }
 
     if (invEquals != null) {

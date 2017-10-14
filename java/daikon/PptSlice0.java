@@ -34,6 +34,7 @@ public class PptSlice0 extends PptSlice {
     super(parent, new VarInfo[0]);
   }
 
+  @Override
   public final /*@IntVal(0)*/ int arity(
       /*>>>@UnknownInitialization(PptSlice.class) @Raw(PptSlice.class) PptSlice0 this*/) {
     return 0;
@@ -88,6 +89,7 @@ public class PptSlice0 extends PptSlice {
    * The invariant is typically an Implication; but PptSlice0 can contain other joiners than
    * implications, such as "and" or "or". That feature isn't used as of November 2003.
    */
+  @Override
   public void addInvariant(Invariant inv) {
     assert inv != null;
     assert inv instanceof Implication;
@@ -99,6 +101,7 @@ public class PptSlice0 extends PptSlice {
     // checkRep();
   }
 
+  @Override
   public void removeInvariant(Invariant inv) {
     assert inv != null;
     assert inv instanceof Implication;
@@ -113,6 +116,7 @@ public class PptSlice0 extends PptSlice {
   // This can be called with very long lists by the conditionals code.
   // At least until that's fixed, it's important for it not to be
   // quadratic.
+  @Override
   public void removeInvariants(List<Invariant> to_remove) {
     if (to_remove.size() < 10) {
       for (Invariant trinv : to_remove) {
@@ -179,6 +183,7 @@ public class PptSlice0 extends PptSlice {
     }
 
     /*@Pure*/
+    @Override
     public int hashCode(/*>>>@GuardSatisfied ImplicationWrapper this*/) {
       if (hashCode == 0) {
         hashCode = format().hashCode();
@@ -192,6 +197,7 @@ public class PptSlice0 extends PptSlice {
     // Returns the value of "isSameInvariant()".
     /*@EnsuresNonNullIf(result=true, expression="#1")*/
     /*@Pure*/
+    @Override
     public boolean equals(
         /*>>>@GuardSatisfied ImplicationWrapper this,*/
         /*@GuardSatisfied*/ /*@Nullable*/ Object o) {
@@ -230,6 +236,7 @@ public class PptSlice0 extends PptSlice {
   }
 
   // I need to figure out how to set these.
+  @Override
   public int num_samples(/*>>>@UnknownInitialization @GuardSatisfied PptSlice0 this*/) {
     return 2222;
   }
@@ -238,14 +245,17 @@ public class PptSlice0 extends PptSlice {
     return 2222;
   }
 
+  @Override
   public int num_values() {
     return 2222;
   }
 
+  @Override
   void instantiate_invariants() {
     throw new Error("Shouldn't get called");
   }
 
+  @Override
   public List<Invariant> add(ValueTuple vt, int count) {
     throw new Error("Shouldn't get called");
   }

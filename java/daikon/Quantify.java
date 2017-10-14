@@ -100,10 +100,12 @@ public class Quantify {
       this.name = name;
     }
     /*@SideEffectFree*/
+    @Override
     public String name(/*>>>@GuardSatisfied FreeVar this*/) {
       return name;
     }
     /*@SideEffectFree*/
+    @Override
     public String simplify_name() {
       return "|" + name + "|";
     }
@@ -117,6 +119,7 @@ public class Quantify {
       this.val = val;
     }
     /*@SideEffectFree*/
+    @Override
     public String name(/*>>>@GuardSatisfied Constant this*/) {
       return "" + val;
     }
@@ -136,14 +139,17 @@ public class Quantify {
       this.offset = offset;
     }
     /*@SideEffectFree*/
+    @Override
     public String toString(/*>>>@GuardSatisfied Length this*/) {
       return name();
     }
     /*@SideEffectFree*/
+    @Override
     public String name(/*>>>@GuardSatisfied Length this*/) {
       return name_with_offset("size(" + sequence.name() + ")", offset);
     }
     /*@SideEffectFree*/
+    @Override
     public String esc_name() {
       VarInfo arr_var = get_check_array_var("ESC");
       if (arr_var.isPrestate()) {
@@ -155,6 +161,7 @@ public class Quantify {
       }
     }
     /*@SideEffectFree*/
+    @Override
     public String jml_name() {
       VarInfo arr_var = get_check_array_var("JML");
       if (arr_var.isPrestate()) {
@@ -168,6 +175,7 @@ public class Quantify {
       }
     }
     /*@SideEffectFree*/
+    @Override
     public String jml_name(boolean in_prestate) {
       if (!in_prestate) return jml_name();
 
@@ -182,6 +190,7 @@ public class Quantify {
       }
     }
     /*@SideEffectFree*/
+    @Override
     public String simplify_name() {
       VarInfo arr_var = get_check_array_var("Simplify");
       String length = String.format("(arrayLength %s)", arr_var.simplify_name());
@@ -194,6 +203,7 @@ public class Quantify {
       }
     }
     /*@SideEffectFree*/
+    @Override
     public String csharp_name() {
       VarInfo arr_var = get_check_array_var("CHARPCONTRACT");
       return name_with_offset(arr_var.csharp_name() + ".Count()", offset);
@@ -240,21 +250,25 @@ public class Quantify {
     }
 
     /*@SideEffectFree*/
+    @Override
     public String name(/*>>>@GuardSatisfied VarPlusOffset this*/) {
       return name_with_offset(var.name(), offset);
     }
 
     /*@SideEffectFree*/
+    @Override
     public String esc_name() {
       return name_with_offset(var.esc_name(), offset);
     }
 
     /*@SideEffectFree*/
+    @Override
     public String jml_name() {
       return name_with_offset(var.jml_name(), offset);
     }
 
     /*@SideEffectFree*/
+    @Override
     public String jml_name(boolean in_prestate) {
       if (!in_prestate) return jml_name();
 
@@ -267,6 +281,7 @@ public class Quantify {
     }
 
     /*@SideEffectFree*/
+    @Override
     public String simplify_name() {
       if (offset < 0) {
         return String.format("(- %s %d)", var.simplify_name(), -offset);

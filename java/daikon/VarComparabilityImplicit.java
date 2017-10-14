@@ -55,6 +55,7 @@ public final class VarComparabilityImplicit extends VarComparability implements 
   }
 
   /*@Pure*/
+  @Override
   public int hashCode(/*>>>@GuardSatisfied VarComparabilityImplicit this*/) {
     if (base < 0) {
       // This is equals() to everything
@@ -68,6 +69,7 @@ public final class VarComparabilityImplicit extends VarComparability implements 
 
   /*@EnsuresNonNullIf(result=true, expression="#1")*/
   /*@Pure*/
+  @Override
   public boolean equals(
       /*>>>@GuardSatisfied VarComparabilityImplicit this,*/
       /*@GuardSatisfied*/ /*@Nullable*/ Object o) {
@@ -90,6 +92,7 @@ public final class VarComparabilityImplicit extends VarComparability implements 
   }
 
   /*@Pure*/
+  @Override
   public boolean alwaysComparable(/*>>>@GuardSatisfied VarComparabilityImplicit this*/) {
     return (dimensions == 0) && (base < 0);
   }
@@ -117,10 +120,12 @@ public final class VarComparabilityImplicit extends VarComparability implements 
     }
   }
 
+  @Override
   public VarComparability makeAlias() {
     return this;
   }
 
+  @Override
   public VarComparability elementType(/*>>>@GuardSatisfied VarComparabilityImplicit this*/) {
     if (cached_element_type == null) {
       // When Ajax is modified to output non-atomic info for arrays, this
@@ -141,11 +146,13 @@ public final class VarComparabilityImplicit extends VarComparability implements 
    * but it would be best if string lengths were only comparable with other string lengths (or
    * perhaps nothing).
    */
+  @Override
   public VarComparability string_length_type() {
     return unknown;
   }
 
   /*@Pure*/
+  @Override
   public VarComparability indexType(
       /*>>>@GuardSatisfied VarComparabilityImplicit this,*/
       /*@NonNegative*/ int dim) {
@@ -185,6 +192,7 @@ public final class VarComparabilityImplicit extends VarComparability implements 
    * Same as comparable, except that variables that are comparable to everything (negative
    * comparability value) can't be included in the same equality set as those with positive values.
    */
+  @Override
   public boolean equality_set_ok(
       /*>>>@GuardSatisfied VarComparabilityImplicit this,*/
       /*@GuardSatisfied*/ VarComparability other) {
@@ -210,6 +218,7 @@ public final class VarComparabilityImplicit extends VarComparability implements 
 
   // for debugging
   /*@SideEffectFree*/
+  @Override
   public String toString(/*>>>@GuardSatisfied VarComparabilityImplicit this*/) {
     String result = "" + base;
     for (int i = 0; i < dimensions; i++) {

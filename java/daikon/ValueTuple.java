@@ -344,6 +344,7 @@ public final class ValueTuple implements Cloneable {
   /** Creates and returns a copy of this. */
   // Default implementation to quiet Findbugs.
   /*@SideEffectFree*/
+  @Override
   public ValueTuple clone(
       /*>>>@GuardSatisfied ValueTuple this*/) throws CloneNotSupportedException {
     return (ValueTuple) super.clone();
@@ -378,6 +379,7 @@ public final class ValueTuple implements Cloneable {
   // same contents compare identically.
   /*@EnsuresNonNullIf(result=true, expression="#1")*/
   /*@Pure*/
+  @Override
   public boolean equals(
       /*>>>@GuardSatisfied ValueTuple this,*/
       /*@GuardSatisfied*/ /*@Nullable*/ Object obj) {
@@ -407,6 +409,7 @@ public final class ValueTuple implements Cloneable {
   }
 
   /*@SideEffectFree*/
+  @Override
   public String toString(/*>>>@GuardSatisfied ValueTuple this*/) {
     return toString(null);
   }

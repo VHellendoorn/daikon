@@ -44,6 +44,7 @@ public class PptSliceEquality extends PptSlice {
     super(parent, parent.var_infos);
   }
 
+  @Override
   public final /*@BottomVal*/ int arity(
       /*>>>@UnknownInitialization(PptSlice.class) @Raw(PptSlice.class) PptSliceEquality this*/) {
     throw new Error("Don't call arity on PptSliceEquality");
@@ -53,12 +54,14 @@ public class PptSliceEquality extends PptSlice {
     throw new Error("Shouldn't get called");
   }
 
+  @Override
   public void addInvariant(Invariant inv) {
     assert inv instanceof Equality;
     invs.add(inv);
   }
 
   // Not valid for this type of slice.  Always pretend there are enough.
+  @Override
   public int num_samples(/*>>>@UnknownInitialization @GuardSatisfied PptSliceEquality this*/) {
     if (true) throw new Error();
     return Integer.MAX_VALUE;
@@ -69,6 +72,7 @@ public class PptSliceEquality extends PptSlice {
     return Integer.MAX_VALUE;
   }
 
+  @Override
   public int num_values() {
     if (true) throw new Error();
     return Integer.MAX_VALUE;
@@ -83,6 +87,7 @@ public class PptSliceEquality extends PptSlice {
     public VarInfo vi;
 
     /*@Pure*/
+    @Override
     public int hashCode(/*>>>@GuardSatisfied VarInfoAndComparability this*/) {
       // This is very coarse but is about as good as we can do it.  Can't do hashcode of
       // the comparability because two comparabilities may be
@@ -93,6 +98,7 @@ public class PptSliceEquality extends PptSlice {
 
     /*@EnsuresNonNullIf(result=true, expression="#1")*/
     /*@Pure*/
+    @Override
     public boolean equals(
         /*>>>@GuardSatisfied VarInfoAndComparability this,*/
         /*@GuardSatisfied*/ /*@Nullable*/ Object o) {
@@ -123,6 +129,7 @@ public class PptSliceEquality extends PptSlice {
   }
 
   /** Actually instantiate the equality sets. */
+  @Override
   void instantiate_invariants() {
 
     // If each variable gets its own set, create those sets and return
@@ -245,6 +252,7 @@ public class PptSliceEquality extends PptSlice {
   //        - Get the new leaders
   //        - Create new slices and invariants (call CopyInvsFromLeader)
   //
+  @Override
   public List<Invariant> add(ValueTuple vt, int count) {
 
     LinkedList<Equality> allNewInvs = new LinkedList<Equality>();
@@ -617,6 +625,7 @@ public class PptSliceEquality extends PptSlice {
     }
   }
 
+  @Override
   public void repCheck() {
     for (Invariant inv : invs) {
       inv.repCheck();
@@ -625,6 +634,7 @@ public class PptSliceEquality extends PptSlice {
   }
 
   /*@SideEffectFree*/
+  @Override
   public String toString(/*>>>@GuardSatisfied PptSliceEquality this*/) {
     StringBuffer result = new StringBuffer("PptSliceEquality: [");
     for (Invariant inv : invs) {
@@ -642,6 +652,7 @@ public class PptSliceEquality extends PptSlice {
     private EqualityComparator() {}
 
     /*@Pure*/
+    @Override
     public int compare(Equality eq1, Equality eq2) {
       return VarInfo.IndexComparator.theInstance.compare(eq1.leader(), eq2.leader());
     }
