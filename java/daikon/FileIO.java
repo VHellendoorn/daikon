@@ -395,10 +395,8 @@ public final class FileIO {
 
     // Check to see if the program point is new
     if (state.all_ppts.containsName(ppt_name)) {
-      PptTopLevel existing_ppt = state.all_ppts.get(ppt_name);
+      /*@NonNull*/ PptTopLevel existing_ppt = state.all_ppts.get(ppt_name);
       assert existing_ppt != null : "state.all_ppts.containsName(" + ppt_name + ")";
-      assert existing_ppt != null
-          : "@AssumeAssertion(nullness): bug: containsName() is annotated as @EnsuresNonNullIf(result=true, expression='get(#0)')";
       if (state.ppts_may_be_new) {
         check_decl_match(state, existing_ppt, vi_array);
       } else { // ppts are already in the map
@@ -466,10 +464,8 @@ public final class FileIO {
 
     // This program point name has already been encountered.
     if (state.all_ppts.containsName(ppt_name)) {
-      PptTopLevel existing_ppt = state.all_ppts.get(ppt_name);
+      /*@NonNull*/ PptTopLevel existing_ppt = state.all_ppts.get(ppt_name);
       assert existing_ppt != null : "state.all_ppts.containsName(" + ppt_name + ")";
-      assert existing_ppt != null
-          : "@AssumeAssertion(nullness): bug: containsName() is annotated as @EnsuresNonNullIf(result=true, expression='get(#0)')";
       if (state.ppts_may_be_new) {
         check_decl_match(state, existing_ppt, vi_array);
       } else { // ppts are already in the map
@@ -1496,10 +1492,6 @@ public final class FileIO {
       // Check for the file format
       if (line.startsWith("decl-version")) {
         read_decl_version(state, line);
-        assert new_decl_format != null
-            : "@AssumeAssertion(nullness): bug in Checker Framework:  read_decl_version is annotated as @EnsuresNonNull(new_decl_format)";
-        assert FileIO.new_decl_format != null
-            : "@AssumeAssertion(nullness): bug in Checker Framework:  read_decl_version is annotated as @EnsuresNonNull(new_decl_format)";
         state.payload = (new_decl_format ? "2.0" : "1.0");
         state.payload = (FileIO.new_decl_format ? "2.0" : "1.0");
         state.rtype = RecordType.DECL_VERSION;
@@ -1532,8 +1524,6 @@ public final class FileIO {
         // --ppt-select-pattern or --ppt-omit-pattern.
         if (state.ppt != null) {
           if (!state.all_ppts.containsName(state.ppt.name())) {
-            assert state.ppt != null
-                : "@AssumeAssertion(nullness): bug: not side-effected since check, and only pure methods have been called since";
             state.all_ppts.add(state.ppt);
             assert state.ppt != null; // for nullness checker
             try {
@@ -1756,8 +1746,7 @@ public final class FileIO {
       return;
     }
 
-    @SuppressWarnings(
-        "flowexpr.parse.error") // https://github.com/typetools/checker-framework/issues/862
+    @SuppressWarnings("flowexpr.parse.error") // https://tinyurl.com/cfissue/862
     Object dummy = ppt.add_bottom_up(vt, 1);
 
     if (debugVars.isLoggable(Level.FINE)) {
@@ -2535,6 +2524,7 @@ public final class FileIO {
     /** Type of the variable (required) */
     public VarKind kind = null;
     /** Variable that contains this variable (optional) */
+    // seems non-null for arrays/sequences
     public /*@Nullable*/ String enclosing_var;
     /** the simple (not fully specified) name of this variable (optional) */
     public /*@Nullable*/ String relative_name = null;

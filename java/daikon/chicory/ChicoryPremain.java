@@ -90,11 +90,7 @@ public class ChicoryPremain {
     if (Chicory.comparability_file != null) {
       Runtime.comp_info = new DeclReader();
       try {
-        castNonNull(Runtime.comp_info)
-            .read(
-                castNonNull(
-                    Chicory
-                        .comparability_file)); // @SuppressWarnings("nullness") // bug: flow should figure this out (mark DeclReader constructor as pure?
+        castNonNull(Runtime.comp_info).read(castNonNull(Chicory.comparability_file));
       } catch (FileNotFoundException e) {
         System.err.printf("%nCould not find comparability file: %s%n", Chicory.comparability_file);
         Runtime.chicoryLoaderInstantiationError = true;
@@ -316,12 +312,13 @@ public class ChicoryPremain {
    *   <li>an interim 6.0 version
    *   <li>the offical 6.0 release version
    *   <li>the offical 6.1 release version
+   *   <li>the PLSE 6.1 release version (includes LocalVariableGen fix)
    * </ul>
    *
-   * We are looking for the latter one. All but the interim versions use the package name of
-   * org.apache.bcel while the interim version uses the package name of org.apache.commons.bcel6.
-   * Also, there are two classes present in the 6.1 release version that are not in any other
-   * version. Thus, we can identify the correct version of BCEL by the presence of the class:
+   * Currently, only DynComp cares about the LocalVariableGen fix, so we are looking for the offical
+   * 6.1 release version and DynComp will check for the fixed version later. There are two classes
+   * present in the 6.1 release version that are not in any other version. Thus, we can identify the
+   * correct version of BCEL by the presence of the class:
    * org.apache.bcel.classfile.ConstantModule.class
    *
    * <p>Earlier versions of Chicory inspected all version of BCEL found on the path and selected the
