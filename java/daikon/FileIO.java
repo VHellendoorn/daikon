@@ -390,7 +390,7 @@ public final class FileIO {
     for (VarDefinition vd : varmap.values()) {
       vi_list.add(new VarInfo(vd));
     }
-    @SuppressWarnings("index") // list size
+    @SuppressWarnings({"index", "value"}) // List.toArray()
     VarInfo /*@MinLen(1)*/[] vi_array = vi_list.toArray(new VarInfo[vi_list.size()]);
 
     // Check to see if the program point is new

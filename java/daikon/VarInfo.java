@@ -3304,6 +3304,8 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
    * Returns the name of this variable in simplify format. If an index is specified, it is used as
    * an array index. It is an error to specify an index on a non-array variable.
    */
+  @SuppressWarnings(
+      "index") // split():  in VARIABLE case, name contains "." so split() result has >=2 elts
   public String simplify_name(/*@Nullable*/ String index) {
     if (!FileIO.new_decl_format) {
       return var_info_name.simplify_name(); // vin ok
@@ -3346,7 +3348,6 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
       case VARIABLE:
         if (dkconfig_constant_fields_simplify && str_name.contains(".")) {
           String sel;
-          @SuppressWarnings("index") // name contains "."
           String /*@MinLen(2)*/[] fields;
           if (postState != null) {
             fields = postState.name().split("\\.");
@@ -3451,6 +3452,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
    * variable 1, Element 2 is the indexed form of variable 3, and Element 4 is syntax such as close
    * parentheses.
    */
+  @SuppressWarnings("index") // format_esc returns an array of length 2 greater than its input
   public static String /*@ArrayLen({3,4})*/[] esc_quantify(
       boolean elementwise, VarInfo /*@ArrayLen({1,2})*/... vars) {
 
@@ -3694,12 +3696,15 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
         vin[ii] = vars[ii].var_info_name; // vin ok
       }
 
-      return VarInfoName.QuantHelper.format_simplify(
-          vin,
-          flags.contains(QuantFlags.ELEMENT_WISE),
-          flags.contains(QuantFlags.ADJACENT),
-          flags.contains(QuantFlags.DISTINCT),
-          flags.contains(QuantFlags.INCLUDE_INDEX));
+      @SuppressWarnings("index") // relative array length
+      String /*@ArrayLen({3,4,5,6})*/[] result =
+          VarInfoName.QuantHelper.format_simplify(
+              vin,
+              flags.contains(QuantFlags.ELEMENT_WISE),
+              flags.contains(QuantFlags.ADJACENT),
+              flags.contains(QuantFlags.DISTINCT),
+              flags.contains(QuantFlags.INCLUDE_INDEX));
+      return result;
     }
 
     Quantify.SimplifyQuantification quant = new Quantify.SimplifyQuantification(flags, vars);

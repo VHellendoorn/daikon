@@ -3398,10 +3398,10 @@ public abstract /*@Interned*/ class VarInfoName implements Serializable, Compara
 
     // <root*> -> <string string* string>
     /**
-     * Given a list of roots, return a String array where the first element is a ESC-style
-     * quantification over newly-introduced bound variables, the last element is a closer, and the
-     * other elements are esc-named strings for the provided roots (with sequences subscripted by
-     * one of the new bound variables).
+     * Given a list of roots, return a String array whose length is 2 greater. The first element is
+     * a ESC-style quantification over newly-introduced bound variables, the last element is a
+     * closer, and the other elements are esc-named strings for the provided roots (with sequences
+     * subscripted by one of the new bound variables).
      */
     public static String[] format_esc(VarInfoName[] roots) {
       return format_esc(roots, false);
@@ -3413,10 +3413,10 @@ public abstract /*@Interned*/ class VarInfoName implements Serializable, Compara
     }
 
     // <root*> -> <string string*>
-    /**
+    /*
      * Given a list of roots, return a String array where the first element is a JML-style
      * quantification over newly-introduced bound variables, the last element is a closer, and the
-     * other elements are jml-named strings for the provided roots (with sequenced subscripted by
+     * other elements are jml-named strings for the provided roots (with sequences subscripted by
      * one of the new bound variables).
      */
     //     public static String[] format_jml(VarInfoName[] roots) {
@@ -3571,7 +3571,7 @@ public abstract /*@Interned*/ class VarInfoName implements Serializable, Compara
 
     //////////////////////////
 
-    public static String[] simplifyNameAndBounds(VarInfoName name) {
+    public static String @ArrayLen(3) [] simplifyNameAndBounds(VarInfoName name) {
       String[] results = new String[3];
       boolean preState = false;
       if (name instanceof Prestate) {
@@ -3635,7 +3635,6 @@ public abstract /*@Interned*/ class VarInfoName implements Serializable, Compara
       return format_simplify(roots, eltwise, adjacent, distinct, false);
     }
 
-    @SuppressWarnings("index") // issue #117
     public static String[] format_simplify(
         VarInfoName[] roots,
         boolean elementwise,
