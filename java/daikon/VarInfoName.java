@@ -3571,7 +3571,7 @@ public abstract /*@Interned*/ class VarInfoName implements Serializable, Compara
 
     //////////////////////////
 
-    public static String @ArrayLen(3) [] simplifyNameAndBounds(VarInfoName name) {
+    public static String /*@ArrayLen(3)*/[] simplifyNameAndBounds(VarInfoName name) {
       String[] results = new String[3];
       boolean preState = false;
       if (name instanceof Prestate) {
