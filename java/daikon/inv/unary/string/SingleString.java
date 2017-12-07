@@ -10,6 +10,7 @@ import org.checkerframework.checker.initialization.qual.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import typequals.*;
 */
 
@@ -30,7 +31,7 @@ public abstract class SingleString extends UnaryInvariant {
 
   /** Returns whether or not the specified types are valid for unary string. */
   @Override
-  public final boolean valid_types(VarInfo[] vis) {
+  public final boolean valid_types(VarInfo /*@ArrayLen(1)*/[] vis) {
     return ((vis.length == 1) && vis[0].file_rep_type.isString());
   }
 

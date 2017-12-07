@@ -354,7 +354,7 @@ public class Quantify {
 
     private EnumSet<QuantFlags> flags;
     // private VarInfo[] vars;
-    private VarInfo[] arr_vars;
+    private VarInfo /*@ArrayLen({1,2})*/[] arr_vars;
     private String /*@ArrayLen({1,2})*/[] arr_vars_indexed;
     private String[] quants;
     private String quant;

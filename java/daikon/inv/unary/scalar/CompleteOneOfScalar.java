@@ -9,6 +9,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import org.checkerframework.framework.qual.*;
 import typequals.*;
@@ -125,7 +126,7 @@ public final class CompleteOneOfScalar extends SingleScalar {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/[] vis) {
     return super.isObviousStatically(vis);
   }
 

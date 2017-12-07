@@ -5,7 +5,9 @@ import daikon.derive.*;
 import plume.*;
 
 /*>>>
+import org.checkerframework.checker.index.qual.*;
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 */
 
@@ -44,13 +46,13 @@ public abstract class TernaryDerivation extends Derivation {
 
   /*@SideEffectFree*/
   @Override
-  public VarInfo[] getBases() {
+  public VarInfo /*@ArrayLen(3)*/[] getBases() {
     return new VarInfo[] {base1, base2, base3};
   }
 
   /*@Pure*/
   @Override
-  public VarInfo getBase(int i) {
+  public VarInfo getBase(/*@IntVal({0,1,2})*/ int i) {
     switch (i) {
       case 0:
         return base1;
@@ -64,7 +66,8 @@ public abstract class TernaryDerivation extends Derivation {
   }
 
   @Override
-  public Derivation switchVars(VarInfo[] old_vars, VarInfo[] new_vars) {
+  public Derivation switchVars(
+      VarInfo /*@SameLen("#2")*/[] old_vars, VarInfo /*@SameLen("#1")*/[] new_vars) {
     TernaryDerivation result = this.clone();
     result.base1 = new_vars[ArraysMDE.indexOf(old_vars, result.base1)];
     result.base2 = new_vars[ArraysMDE.indexOf(old_vars, result.base2)];

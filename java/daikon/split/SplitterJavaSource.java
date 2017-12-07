@@ -8,6 +8,7 @@ import jtb.syntaxtree.*;
 import plume.ArraysMDE;
 
 /*>>>
+import org.checkerframework.checker.index.qual.*;
 import org.checkerframework.checker.initialization.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
 import org.checkerframework.checker.regex.qual.*;
@@ -517,7 +518,7 @@ class SplitterJavaSource implements jtb.JavaParserConstants {
    * Returns an array of the base names of the variable in varInfos. The returned array is in the
    * same order as varInfos.
    */
-  private static String[] getBaseNames(VarInfo[] varInfos, String className) {
+  private static String /*@SameLen("#1")*/[] getBaseNames(VarInfo[] varInfos, String className) {
     String[] baseNames = new String[varInfos.length];
     for (int i = 0; i < varInfos.length; i++) {
       baseNames[i] = getBaseName(varInfos[i], className);

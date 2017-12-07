@@ -401,7 +401,8 @@ public class NISuppression {
    * @return a new VarInfo[] containing the variables of inv, or null if inv does not match in some
    *     way
    */
-  private VarInfo /*@Nullable*/ [] consider_inv(Invariant inv, NISuppressor supor, VarInfo[] vis) {
+  private VarInfo /*@Nullable*/ [] consider_inv(
+      Invariant inv, NISuppressor supor, VarInfo @MinLen(1) [] vis) {
 
     // Make sure this invariant really matches this suppressor.  We know
     // the class already matches, but if the invariant has a swap variable

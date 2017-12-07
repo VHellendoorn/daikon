@@ -9,6 +9,7 @@ import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
 import org.checkerframework.checker.signature.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 */
 
@@ -78,7 +79,7 @@ public final /*@Interned*/ class ProglangType implements Serializable {
     return base;
   }
 
-  private int dimensions; // number of dimensions
+  private /*@IntVal({0,1,2})*/ int dimensions; // number of dimensions
 
   public int dimensions() {
     return dimensions;

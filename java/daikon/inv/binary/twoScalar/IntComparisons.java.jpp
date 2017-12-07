@@ -379,6 +379,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -428,7 +429,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
 
   /** Returns whether or not the specified var types are valid for INTEQUAL */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     if (!valid_types(vis)) {
       return false;
@@ -920,7 +921,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
   }
 
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/ [] vis) {
     final VarInfo var1 = vis[0];
     final VarInfo var2 = vis[1];
 
@@ -1027,7 +1028,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     // JHP: We might consider adding a check over bounds.   If
     // x < c and y > c then we know that x < y.  Similarly for
@@ -1167,7 +1168,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
    //   *  (y = ax + b) ^ (a == 1) ^ (b > 0) ==> y > x
    //   *  (y = ax + b) ^ (a == 1) ^ (b < 0) ==> y < x
 
-  private /*@Nullable*/ DiscardInfo lb_implies(VarInfo[] vis) {
+  private /*@Nullable*/ DiscardInfo lb_implies(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     // Look for a linear binary invariant over the same variables
     LINEARBINARY lb = (LINEARBINARY) ppt.parent.find_inv_by_class
@@ -1197,7 +1198,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
    *
    * <pre>(x[] op y[]) ^ (i == j) &rArr; (x[i] op y[j])</pre>
    */
-  private /*@Nullable*/ DiscardInfo pairwise_implies(VarInfo[] vis) {
+  private /*@Nullable*/ DiscardInfo pairwise_implies(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     VarInfo v1 = vis[0];
     VarInfo v2 = vis[1];
@@ -1234,7 +1235,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
    *
    * <pre>(x[] = y[]) &rArr; size(x[]) = size(y[])</pre>
    */
-  private /*@Nullable*/ DiscardInfo array_eq_implies(VarInfo[] vis) {
+  private /*@Nullable*/ DiscardInfo array_eq_implies(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     // Make sure v1 and v2 are size(array) with the same shift
     VarInfo v1 = vis[0];
@@ -1280,7 +1281,7 @@ public final class INTEQUAL extends SUPERCLASS IMPLEMENTSCOMPARISON {
    *
    * <pre>(A[] has no dups) ^ (i != j) &rArr; a[i] != a[j]</pre>
    */
-  private /*@Nullable*/ DiscardInfo no_dups_implies(VarInfo[] vis) {
+  private /*@Nullable*/ DiscardInfo no_dups_implies(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     // Make sure v1 and v2 are SEQ_SUBSCRIPT from the same array
     VarInfo v1 = vis[0];

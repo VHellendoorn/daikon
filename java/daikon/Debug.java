@@ -10,6 +10,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.initialization.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 */
 
 /**
@@ -166,7 +167,7 @@ public final class Debug {
    * vis that is on the debugTrackVar list. Essentially this creates a debug object that will print
    * if any of the variables in vis are being tracked (and c and ppt match).
    */
-  public Debug(Class<?> c, Ppt ppt, VarInfo[] vis) {
+  public Debug(Class<?> c, Ppt ppt, VarInfo /*@MinLen(1)*/[] vis) {
     set(c, ppt, vis);
   }
 
@@ -175,7 +176,7 @@ public final class Debug {
    * Otherwise, return NULL. Preferred over calling the constructor directly, since it doesn't
    * create the object if it doesn't have to.
    */
-  public static /*@Nullable*/ Debug newDebug(Class<?> c, Ppt ppt, VarInfo[] vis) {
+  public static /*@Nullable*/ Debug newDebug(Class<?> c, Ppt ppt, VarInfo /*@MinLen(1)*/[] vis) {
     if (logOn() && class_match(c) && ppt_match(ppt) && var_match(vis)) {
       return new Debug(c, ppt, vis);
     } else {
@@ -229,22 +230,22 @@ public final class Debug {
 
   private static /*@Nullable*/ String[] ourvars = new String[3];
 
-  private static final VarInfo[] vis1 = new VarInfo[1];
-  private static final VarInfo[] vis2 = new VarInfo[2];
-  private static final VarInfo[] vis3 = new VarInfo[3];
+  private static final VarInfo /*@ArrayLen(1)*/[] vis1 = new VarInfo[1];
+  private static final VarInfo /*@ArrayLen(2)*/[] vis2 = new VarInfo[2];
+  private static final VarInfo /*@ArrayLen(3)*/[] vis3 = new VarInfo[3];
 
-  public static VarInfo[] vis(VarInfo v1) {
+  public static VarInfo /*@ArrayLen(1)*/[] vis(VarInfo v1) {
     vis1[0] = v1;
     return vis1;
   }
 
-  public static VarInfo[] vis(VarInfo v1, VarInfo v2) {
+  public static VarInfo /*@ArrayLen(2)*/[] vis(VarInfo v1, VarInfo v2) {
     vis2[0] = v1;
     vis2[1] = v2;
     return vis2;
   }
 
-  public static VarInfo[] vis(VarInfo v1, VarInfo v2, VarInfo v3) {
+  public static VarInfo /*@MinLen(3)*/[] vis(VarInfo v1, VarInfo v2, VarInfo v3) {
     vis3[0] = v1;
     vis3[1] = v2;
     vis3[2] = v3;
@@ -367,7 +368,8 @@ public final class Debug {
    * @see #log(Logger, String)
    * @see #log(String)
    */
-  public static void log(Logger debug, Class<?> inv_class, Ppt ppt, VarInfo[] vis, String msg) {
+  public static void log(
+      Logger debug, Class<?> inv_class, Ppt ppt, VarInfo /*@MinLen(1)*/[] vis, String msg) {
 
     // Try to log via the logger first
     if (log(inv_class, ppt, vis, msg)) return;

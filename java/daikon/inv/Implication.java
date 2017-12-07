@@ -11,6 +11,7 @@ import org.checkerframework.checker.formatter.qual.*;
 import org.checkerframework.checker.initialization.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -156,7 +157,7 @@ public class Implication extends Joiner {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/[] vis) {
     assert vis.length > 0;
     for (int ii = 0; ii < vis.length; ii++) {
       assert vis[ii] != null;
@@ -166,7 +167,7 @@ public class Implication extends Joiner {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/[] vis) {
     assert vis.length > 0;
     for (int ii = 0; ii < vis.length; ii++) {
       assert vis[ii] != null;

@@ -7,6 +7,7 @@ import plume.*;
 
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -59,7 +60,7 @@ public class NonModulus extends SingleScalar {
 
   /** NonModulus is only valid on integral types */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(1)*/[] vis) {
 
     if (!valid_types(vis)) return false;
 

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 /*>>>
+import org.checkerframework.checker.index.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
 import org.checkerframework.dataflow.qual.*;
 */
@@ -43,7 +44,8 @@ public abstract class Derivation implements Serializable, Cloneable {
   // public boolean applicable();
 
   // This is essentially a clone() method that also switches the variables.
-  public abstract Derivation switchVars(VarInfo[] old_vars, VarInfo[] new_vars);
+  public abstract Derivation switchVars(
+      VarInfo /*@SameLen("#2")*/[] old_vars, VarInfo /*@SameLen("#1")*/[] new_vars);
 
   /** @return array of the VarInfos this was derived from */
   /*@SideEffectFree*/

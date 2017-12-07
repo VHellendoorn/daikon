@@ -20,12 +20,13 @@ import java.util.regex.*;
 import plume.*;
 
 /*>>>
-import org.checkerframework.checker.index.qual.*;
 import org.checkerframework.checker.formatter.qual.*;
+import org.checkerframework.checker.index.qual.*;
 import org.checkerframework.checker.initialization.qual.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import org.checkerframework.framework.qual.*;
 import typequals.*;
@@ -1136,7 +1137,7 @@ import typequals.*;
    */
   /*@Pure*/
   public /*@Nullable*/ DiscardInfo isObviousStatically(
-      /*>>> @Prototype Invariant this,*/ VarInfo[] vis) {
+      /*>>> @Prototype Invariant this,*/ VarInfo /*@MinLen(1)*/[] vis) {
     return null;
   }
 
@@ -1261,7 +1262,7 @@ import typequals.*;
    * dynamic, it should only be called after all processing.
    */
   public /*@Nullable*/ DiscardInfo isObviousDynamically(
-      /*>>> @NonPrototype Invariant this,*/ VarInfo[] vis) {
+      /*>>> @NonPrototype Invariant this,*/ VarInfo /*@MinLen(1)*/[] vis) {
     assert !Daikon.isInferencing;
     assert vis.length <= 3 : "Unexpected more-than-ternary invariant";
     if (!ArraysMDE.noDuplicates(vis)) {
@@ -1717,7 +1718,7 @@ import typequals.*;
    *
    * @see #valid_types(VarInfo[])
    */
-  public boolean instantiate_ok(/*>>> @Prototype Invariant this,*/ VarInfo[] vis) {
+  public boolean instantiate_ok(/*>>> @Prototype Invariant this,*/ VarInfo /*@MinLen(1)*/[] vis) {
     return true;
   }
 

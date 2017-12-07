@@ -77,6 +77,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -128,7 +129,7 @@ public final class CLASSNAME extends SEQUENCESCALAR {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/ [] vis) {
     if (isObviousMember(sclvar(vis), seqvar(vis))) {
       log("scalar is obvious member of");
       return new DiscardInfo(
@@ -397,7 +398,7 @@ public final class CLASSNAME extends SEQUENCESCALAR {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     if (Debug.logOn()) {
       Debug.log(getClass(), ppt.parent, vis, "is obvious check" + format());
@@ -483,7 +484,7 @@ public final class CLASSNAME extends SEQUENCESCALAR {
    *   (0 <= i &le; j) ^ (a[] == b[]) &rArr; a[j] in b[i..]
    * </pre>
    */
-  private /*@Nullable*/ DiscardInfo subscript_in_subsequence(VarInfo[] vis) {
+  private /*@Nullable*/ DiscardInfo subscript_in_subsequence(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     VarInfo scl_var = sclvar(vis);
     VarInfo seq_var = seqvar(vis);

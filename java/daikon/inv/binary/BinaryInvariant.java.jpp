@@ -75,6 +75,7 @@ import daikon.inv.binary.*;
 /*>>>
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -115,7 +116,7 @@ public abstract class CLASSNAME extends BinaryInvariant {
 
   /** Returns whether or not the specified types are valid. */
   @Override
-  final public boolean valid_types(VarInfo[] vis) {
+  final public boolean valid_types(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     if (vis.length != 2) {
       return false;
@@ -190,7 +191,7 @@ public abstract class CLASSNAME extends BinaryInvariant {
    * Returns the first variable from the specified vis. This is the only mechanism by which
    * subclasses should access variables.
    */
-  public VarInfo var1(VarInfo[] vis) {
+  public VarInfo var1(VarInfo /*@ArrayLen(2)*/ [] vis) {
     if (swap) {
       return vis[1];
     } else {
@@ -202,7 +203,7 @@ public abstract class CLASSNAME extends BinaryInvariant {
    * Returns the first variable in the specified vis. This is the only mechanism by which subclasses
    * should access variables.
    */
-  public VarInfo var2(VarInfo[] vis) {
+  public VarInfo var2(VarInfo /*@ArrayLen(2)*/ [] vis) {
     if (swap) {
       return vis[0];
     } else {

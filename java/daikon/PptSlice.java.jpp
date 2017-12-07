@@ -530,7 +530,7 @@ public final class PPTSLICE1 extends PptSlice {
    */
   @SuppressWarnings("index") // https://github.com/kelloggm/checker-framework/issues/146
   @Override
-  protected PptSlice cloneAndPivot(VarInfo[] argNewVarInfos) {
+  protected PptSlice cloneAndPivot(VarInfo /*@MinLen(ARITY)*/ [] argNewVarInfos) {
 
     // Sort the VarInfos by var_index and build a matching permutation
     // from the current order to the new order

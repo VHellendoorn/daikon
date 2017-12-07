@@ -20,6 +20,7 @@ import plume.Intern;
 /*>>>
 import org.checkerframework.checker.nullness.qual.*;
 import org.checkerframework.checker.signature.qual.*;
+import org.checkerframework.common.value.qual.*;
 import typequals.*;
 */
 
@@ -998,16 +999,17 @@ class FormatTestCase {
    * @return a new PptSlice object if the creation of one is possible, else throws a
    *     RuntimeException
    */
-  private static PptSlice createSlice(VarInfo[] vars, PptTopLevel ppt) {
-    if (vars.length == 1) {
-      return new PptSlice1(ppt, vars);
-    } else if (vars.length == 2) {
-      return new PptSlice2(ppt, vars);
-    } else if (vars.length == 3) {
-      return new PptSlice3(ppt, vars);
-    } else {
-      throw new RuntimeException(
-          "Improper vars passed to createSlice (length = " + vars.length + ")");
+  private static PptSlice createSlice(VarInfo /*@ArrayLen({1,2,3})*/[] vars, PptTopLevel ppt) {
+    switch (vars.length) {
+      case 1:
+        return new PptSlice1(ppt, vars);
+      case 2:
+        return new PptSlice2(ppt, vars);
+      case 3:
+        return new PptSlice3(ppt, vars);
+      default:
+        throw new RuntimeException(
+            "Improper vars passed to createSlice (length = " + vars.length + ")");
     }
   }
 

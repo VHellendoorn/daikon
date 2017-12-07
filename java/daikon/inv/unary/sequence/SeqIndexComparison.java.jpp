@@ -163,6 +163,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -211,7 +212,7 @@ public class CLASSNAME extends SUPERCLASS {
 
   /** Check that SeqIndex comparisons make sense over these vars */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(1)*/ [] vis) {
 
     if (!valid_types(vis)) {
       return false;
@@ -466,7 +467,7 @@ public class CLASSNAME extends SUPERCLASS {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     DiscardInfo super_result = super.isObviousDynamically(vis);
     if (super_result != null) {

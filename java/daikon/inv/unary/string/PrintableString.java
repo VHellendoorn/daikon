@@ -9,6 +9,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -101,7 +102,7 @@ public final class PrintableString extends SingleString {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/[] vis) {
     if (vis[0].isStaticConstant()) {
       return new DiscardInfo(this, DiscardCode.obvious, vis[0].name() + " is a static constant.");
     }

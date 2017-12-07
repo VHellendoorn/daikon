@@ -6,6 +6,7 @@ import plume.*;
 
 /*>>>
 import org.checkerframework.checker.interning.qual.*;
+import org.checkerframework.common.value.qual.*;
 import typequals.*;
 */
 
@@ -26,7 +27,7 @@ public abstract class SingleFloatSequence extends SingleSequence {
 
   /** Returns whether or not the specified types are valid. */
   @Override
-  public final boolean valid_types(VarInfo[] vis) {
+  public final boolean valid_types(VarInfo /*@ArrayLen(1)*/[] vis) {
     return ((vis.length == 1)
         && vis[0].file_rep_type.baseIsFloat()
         && vis[0].file_rep_type.isArray());

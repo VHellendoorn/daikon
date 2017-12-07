@@ -7,6 +7,7 @@ import plume.UtilMDE;
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -78,7 +79,7 @@ public class AndJoiner extends Joiner {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/[] vis) {
     // Don't call super.isObviousDynamically(vis);
 
     DiscardInfo leftObvious = left.isObviousDynamically(vis);
@@ -98,7 +99,7 @@ public class AndJoiner extends Joiner {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/[] vis) {
     DiscardInfo leftObvious = left.isObviousStatically(vis);
     DiscardInfo rightObvious = right.isObviousStatically(vis);
     if (leftObvious != null && rightObvious != null) {

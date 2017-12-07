@@ -33,6 +33,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import typequals.*;
 */
 
@@ -56,7 +57,7 @@ public abstract class CLASSNAME extends TernaryInvariant {
 
   /** Returns whether or not the specified types are valid. */
   @Override
-  public final boolean valid_types(VarInfo[] vis) {
+  public final boolean valid_types(VarInfo /*@ArrayLen(3)*/ [] vis) {
 
     return ((vis.length == 3)
             && vis[0].file_rep_type.IS_SCALAR

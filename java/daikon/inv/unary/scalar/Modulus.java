@@ -8,6 +8,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -60,7 +61,7 @@ public class Modulus extends SingleScalar {
 
   /** Modulus is only valid on integral types */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(1)*/[] vis) {
 
     if (!valid_types(vis)) return false;
 
@@ -276,7 +277,7 @@ public class Modulus extends SingleScalar {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/[] vis) {
 
     // Do not show x-1 = a (mod b).  There must be a different mod
     // invariant over x.  JHP: This should really find the invariant rather

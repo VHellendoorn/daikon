@@ -5,7 +5,9 @@ import daikon.derive.*;
 import plume.*;
 
 /*>>>
+import org.checkerframework.checker.index.qual.*;
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 */
 
@@ -32,7 +34,8 @@ public abstract class UnaryDerivation extends Derivation {
   }
 
   @Override
-  public Derivation switchVars(VarInfo[] old_vars, VarInfo[] new_vars) {
+  public Derivation switchVars(
+      VarInfo /*@SameLen("#2")*/[] old_vars, VarInfo /*@SameLen("#1")*/[] new_vars) {
     UnaryDerivation result = this.clone();
     result.base = new_vars[ArraysMDE.indexOf(old_vars, result.base)];
     return result;
@@ -60,7 +63,7 @@ public abstract class UnaryDerivation extends Derivation {
 
   /*@SideEffectFree*/
   @Override
-  public VarInfo[] getBases() {
+  public VarInfo /*@ArrayLen(1)*/[] getBases() {
     return new VarInfo[] {base()};
   }
 

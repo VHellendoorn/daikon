@@ -43,6 +43,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -71,7 +72,7 @@ public abstract class CLASSNAME extends BinaryInvariant {
    * parameter and an array over the same scalar type in the other.
    */
   @Override
-  public boolean valid_types(VarInfo[] vis) {
+  public boolean valid_types(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     if (vis.length != 2) {
       return false;
@@ -143,14 +144,14 @@ public abstract class CLASSNAME extends BinaryInvariant {
   /**
    * Return the sequence variable in the tuple whose VarInfos are corresponds to this.ppt.var_infos.
    */
-  public VarInfo seqvar(VarInfo[] vis) {
+  public VarInfo seqvar(VarInfo /*@ArrayLen(2)*/ [] vis) {
     return (vis[seq_index()]);
   }
 
   /**
    * Return the scalar variable in the tuple whose VarInfos are corresponds to this.ppt.var_infos.
    */
-  public VarInfo sclvar(VarInfo[] vis) {
+  public VarInfo sclvar(VarInfo /*@ArrayLen(2)*/ [] vis) {
     return vis[scl_index()];
   }
 

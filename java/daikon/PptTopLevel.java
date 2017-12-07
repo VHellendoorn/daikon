@@ -1599,7 +1599,7 @@ public class PptTopLevel extends Ppt {
   }
 
   /** Find a pptSlice with an assumed ordering. */
-  public /*@Nullable*/ PptSlice findSlice(VarInfo[] vis) {
+  public /*@Nullable*/ PptSlice findSlice(VarInfo /*@ArrayLen({0,1,2,3})*/[] vis) {
     if (vis.length > 3) {
       throw new RuntimeException("Bad length " + vis.length);
     }
@@ -1610,7 +1610,8 @@ public class PptTopLevel extends Ppt {
    * Returns the invariant in the slice specified by vis that matches the specified class. If the
    * slice or the invariant does not exist, returns null.
    */
-  public /*@Nullable*/ Invariant find_inv_by_class(VarInfo[] vis, Class<? extends Invariant> cls) {
+  public /*@Nullable*/ Invariant find_inv_by_class(
+      VarInfo /*@ArrayLen({0,1,2,3})*/[] vis, Class<? extends Invariant> cls) {
 
     PptSlice slice = findSlice(vis);
     if (slice == null) {
@@ -2299,13 +2300,16 @@ public class PptTopLevel extends Ppt {
 
   /** Returns whether or not the specified slice should be created. */
   /*@Pure*/
-  public boolean is_slice_ok(VarInfo[] vis, /*@LengthOf("#1")*/ int arity) {
-    if (arity == 1) {
-      return (is_slice_ok(vis[0]));
-    } else if (arity == 2) {
-      return (is_slice_ok(vis[0], vis[1]));
-    } else {
-      return (is_slice_ok(vis[0], vis[1], vis[2]));
+  public boolean is_slice_ok(VarInfo /*@ArrayLen({1,2,3})*/[] vis, /*@LengthOf("#1")*/ int arity) {
+    switch (arity) {
+      case 1:
+        return (is_slice_ok(vis[0]));
+      case 2:
+        return (is_slice_ok(vis[0], vis[1]));
+      case 3:
+        return (is_slice_ok(vis[0], vis[1], vis[2]));
+      default:
+        throw new Error("bad length: " + Arrays.toString(vis));
     }
   }
 
@@ -2450,7 +2454,7 @@ public class PptTopLevel extends Ppt {
    * @param vis array of VarInfo objects; is not used internally (so the same value can be passed in
    *     repeatedly). Can be unsorted.
    */
-  public PptSlice get_or_instantiate_slice(VarInfo[] vis) {
+  public PptSlice get_or_instantiate_slice(VarInfo /*@ArrayLen({1,2,3})*/[] vis) {
     switch (vis.length) {
       case 1:
         return get_or_instantiate_slice(vis[0]);

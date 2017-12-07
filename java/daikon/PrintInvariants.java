@@ -1181,7 +1181,7 @@ public final class PrintInvariants {
    * Parses the variables from vars.
    *
    * @param vars an array of Daikon variable representations
-   * @param variables the set to store the parsed variables
+   * @param variables the set to store the parsed variable names
    * @param sort true to parse as group variables, false to parse as filtering variables
    */
   public static void get_csharp_invariant_variables(

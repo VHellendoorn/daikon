@@ -586,7 +586,7 @@ public class PptSplitter implements Serializable {
    * don't exist in the parent).
    */
   /*@RequiresNonNull("parent.equality_view")*/
-  private List<VarInfo[]> possible_slices() {
+  private List<VarInfo /*@ArrayLen({1,2,3})*/[]> possible_slices() {
 
     List<VarInfo[]> result = new ArrayList<VarInfo[]>();
 

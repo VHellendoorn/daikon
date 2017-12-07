@@ -59,6 +59,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -104,7 +105,7 @@ public class SUBSET extends TWOSEQUENCE {
   }
 
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     if (!valid_types(vis)) {
       return false;
@@ -312,7 +313,7 @@ public class SUBSET extends TWOSEQUENCE {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/ [] vis) {
     VarInfo var1 = vis[0];
     VarInfo var2 = vis[1];
 

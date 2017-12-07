@@ -468,7 +468,8 @@ public class NISuppressionSet implements Iterable<NISuppression> {
    * @deprecated
    */
   @Deprecated
-  private void instantiate(PptTopLevel ppt, VarInfo[] vis, List<Invariant> new_invs) {
+  private void instantiate(
+      PptTopLevel ppt, VarInfo /*@ArrayLen(3)*/[] vis, List<Invariant> new_invs) {
 
     NIS.new_invs_cnt++;
 

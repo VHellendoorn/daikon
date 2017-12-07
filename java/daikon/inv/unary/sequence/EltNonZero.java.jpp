@@ -65,6 +65,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -301,7 +302,7 @@ public final class CLASSNAME extends SUPERCLASS {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/ [] vis) {
     // This test doesn't seem right: the invariant is obvious if the
     // elements don't have null, not if the collection doesn't have null.
     if (!vis[0].aux.hasNull()) {
@@ -313,7 +314,7 @@ public final class CLASSNAME extends SUPERCLASS {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
     DiscardInfo super_result = super.isObviousDynamically(vis);
     if (super_result != null) {
       return super_result;

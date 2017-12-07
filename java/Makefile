@@ -70,7 +70,7 @@ endif
 
 # Add flags like "-source 5" or "-target 5" to JAVAC_TARGET_FLAGS.
 # That variable appears last and overrides the values we provide here.
-JAVAC_ARGS ?= -g -XDignore.symbol.file -source 7 -target 7 -Werror -Xlint:-path -Xlint:-options -Xlint:-classfile ${JAVAC_TARGET_FLAGS}
+JAVAC_ARGS ?= -g -XDignore.symbol.file -source 7 -target 7 -Werror -Xmaxerrs 10000 -Xmaxwarns 10000 -Xlint:-path -Xlint:-options -Xlint:-classfile ${JAVAC_TARGET_FLAGS}
 
 INSTALL ?= /usr/bin/install
 

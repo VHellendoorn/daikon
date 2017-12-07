@@ -146,6 +146,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -241,7 +242,7 @@ public final class SEQINTEQUAL extends SUPERCLASS {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousStatically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     SequenceMin seqmin = null;
     SequenceMax seqmax = null;
@@ -408,7 +409,7 @@ public final class SEQINTEQUAL extends SUPERCLASS {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     DiscardInfo super_result = super.isObviousDynamically(vis);
     if (super_result != null) {

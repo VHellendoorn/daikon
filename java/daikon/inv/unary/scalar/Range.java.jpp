@@ -73,6 +73,7 @@ import plume.*;
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -105,7 +106,7 @@ public abstract class RANGE extends SUPERCLASS {
    * (not boolean or hash code).
    */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(1)*/ [] vis) {
 
     if (!valid_types(vis)) {
       return false;
@@ -213,7 +214,7 @@ public abstract class RANGE extends SUPERCLASS {
    */
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     return new DiscardInfo(this, DiscardCode.obvious,
                             "Implied by Oneof or Bound");
@@ -223,7 +224,7 @@ public abstract class RANGE extends SUPERCLASS {
    * Looks for a OneOf invariant over vis. Used by Even and PowerOfTwo to dynamically suppress those
    * invariants if a OneOf exists.
    */
-  protected /*@Nullable*/ ONEOF find_oneof(VarInfo[] vis) {
+  protected /*@Nullable*/ ONEOF find_oneof(VarInfo /*@ArrayLen(1)*/ [] vis) {
     return (ONEOF) ppt.parent.find_inv_by_class(vis, ONEOF.class);
   }
 
@@ -650,7 +651,7 @@ public abstract class RANGE extends SUPERCLASS {
      */
     /*@Pure*/
     @Override
-    public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+    public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
        ONEOF oneof = find_oneof(vis);
        if (oneof != null) {
@@ -727,7 +728,7 @@ public abstract class RANGE extends SUPERCLASS {
      */
     /*@Pure*/
     @Override
-    public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+    public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
        // If there is a oneof, it implies this
        ONEOF oneof = find_oneof(vis);
        if (oneof != null) {

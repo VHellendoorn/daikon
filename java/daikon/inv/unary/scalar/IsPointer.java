@@ -10,6 +10,7 @@ import daikon.inv.ValueSet;
 
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -65,7 +66,7 @@ public class IsPointer extends SingleScalar {
   }
 
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(1)*/[] vis) {
     if (!super.valid_types(vis)) return false;
 
     ProglangType file_rep_type = vis[0].file_rep_type;

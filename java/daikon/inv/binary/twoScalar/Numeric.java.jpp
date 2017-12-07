@@ -177,6 +177,7 @@ import plume.*;
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
 import org.checkerframework.checker.signature.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -207,7 +208,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
 
   /** Returns true if it is ok to instantiate a numeric invariant over the specified slice. */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     ProglangType type1 = vis[0].file_rep_type;
     ProglangType type2 = vis[1].file_rep_type;
@@ -394,7 +395,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
    * to insure that foo == bar as well. But that is not a requirement here (the fact that 'x[] op
    * y[]' implies that foo == bar when x[] and y[] are not missing).
    */
-  public /*@Nullable*/ DiscardInfo is_subsequence(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo is_subsequence(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     VarInfo v1 = var1(vis);
     VarInfo v2 = var2(vis);
@@ -435,7 +436,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
    * Checks to see if 'x[a] op y[b]' where 'x[] op y[]' and 'a == b'. Doesn't catch the case where
    * a = b+1.
    */
-  public /*@Nullable*/ DiscardInfo is_subscript(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo is_subscript(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     VarInfo v1 = var1(vis);
     VarInfo v2 = var2(vis);
@@ -487,7 +488,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
 
   /*@Pure*/
   @Override
-  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+  public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
 
     DiscardInfo super_result = super.isObviousDynamically(vis);
     if (super_result != null) {
@@ -766,7 +767,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
        * consistent way to check that var1 and var2 have the same length (for derivations).
        */
       @Override
-      public InvDef[][] obvious_checks(VarInfo[] vis) {
+      public InvDef[][] obvious_checks(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
         return new InvDef[][] {
           new InvDef[] {
@@ -830,7 +831,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
      */
     /*@Pure*/
     @Override
-    public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo[] vis) {
+    public /*@Nullable*/ DiscardInfo isObviousDynamically(VarInfo /*@MinLen(1)*/ [] vis) {
       // First call super type's method, and if it returns non-null, then
       // this invariant is already known to be obvious, so just return
       // whatever reason the super type returned.
@@ -1219,7 +1220,7 @@ public abstract class CLASSNAME extends SUPERCLASS {
        * consistent way to check that var1 and var2 have the same length (for derivations).
        */
       @Override
-      public InvDef[][] obvious_checks(VarInfo[] vis) {
+      public InvDef[][] obvious_checks(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
         return new InvDef[][] {
           // suppress if var2 == 0

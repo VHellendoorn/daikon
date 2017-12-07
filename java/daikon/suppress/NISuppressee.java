@@ -12,6 +12,7 @@ import plume.*;
 /*>>>
 import org.checkerframework.checker.lock.qual.*;
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -78,7 +79,7 @@ public class NISuppressee {
   }
 
   /** Checks this invariant against the specified sample and returns the status. */
-  public InvariantStatus check(ValueTuple vt, VarInfo[] vis) {
+  public InvariantStatus check(ValueTuple vt, VarInfo /*@MinLen(1)*/[] vis) {
 
     // Nothing to check if any variable is missing
     for (int i = 0; i < vis.length; i++) {
@@ -109,7 +110,7 @@ public class NISuppressee {
    * Instantiates the suppressee invariant on the slice specified by vis in the specified ppt. If
    * the slice is not currently there, it will be created.
    */
-  public /*@Nullable*/ Invariant instantiate(VarInfo[] vis, PptTopLevel ppt) {
+  public /*@Nullable*/ Invariant instantiate(VarInfo /*@MinLen(1)*/[] vis, PptTopLevel ppt) {
 
     PptSlice slice = ppt.get_or_instantiate_slice(vis);
     return (instantiate(slice));
@@ -174,7 +175,9 @@ public class NISuppressee {
    */
   /*@RequiresNonNull("#2.equality_view")*/
   public List<NIS.SupInv> find_all(
-      VarInfo[] vis, PptTopLevel ppt, /*@Nullable*/ Invariant /*@Nullable*/ [] cinvs) {
+      VarInfo /*@MinLen(1)*/[] vis,
+      PptTopLevel ppt,
+      /*@Nullable*/ Invariant /*@Nullable*/ [] cinvs) {
 
     List<NIS.SupInv> created_list = new ArrayList<NIS.SupInv>();
 

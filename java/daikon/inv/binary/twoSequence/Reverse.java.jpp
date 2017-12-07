@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 /*>>>
 import org.checkerframework.checker.interning.qual.*;
 import org.checkerframework.checker.lock.qual.*;
+import org.checkerframework.common.value.qual.*;
 import org.checkerframework.dataflow.qual.*;
 import typequals.*;
 */
@@ -80,7 +81,7 @@ public class CLASSNAME extends SUPERCLASS {
 
   /** Reverse only makes sense on ordered arrays */
   @Override
-  public boolean instantiate_ok(VarInfo[] vis) {
+  public boolean instantiate_ok(VarInfo /*@ArrayLen(2)*/ [] vis) {
 
     if (!valid_types(vis)) {
       return false;

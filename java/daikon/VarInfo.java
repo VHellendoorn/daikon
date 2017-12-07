@@ -787,7 +787,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
    * have been modified into references to the new ones (so that the new set is self-consistent).
    * The originals should not be modified by this operation.
    */
-  public static VarInfo[] arrayclone_simple(VarInfo[] a_old) {
+  public static VarInfo /*@SameLen("#1")*/[] arrayclone_simple(VarInfo[] a_old) {
     int len = a_old.length;
     VarInfo[] a_new = new VarInfo[len];
     for (int i = 0; i < len; i++) {
@@ -2693,7 +2693,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
     }
   }
 
-  /** Returns a string containing the names of the vars in the array. */
+  /** Returns a string containing the names of the vars in the array, separated by ", ". */
   public static String arrayToString(VarInfo[] vis) {
 
     if (vis == null) return "null";
@@ -2708,7 +2708,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
     return UtilMDE.join(vars, ", ");
   }
 
-  /** Returns a string containing the names of the vars in the list. */
+  /** Returns a string containing the names of the vars in the list, separated by ", ". */
   public static String listToString(List<VarInfo> vlist) {
 
     if (vlist == null) return "null";
@@ -3305,7 +3305,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
    * an array index. It is an error to specify an index on a non-array variable.
    */
   @SuppressWarnings(
-      "index") // split():  in VARIABLE case, name contains "." so split() result has >=2 elts
+      "value") // split():  in VARIABLE case, name contains "." so split() result has >=2 elts
   public String simplify_name(/*@Nullable*/ String index) {
     if (!FileIO.new_decl_format) {
       return var_info_name.simplify_name(); // vin ok
@@ -3452,7 +3452,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
    * variable 1, Element 2 is the indexed form of variable 3, and Element 4 is syntax such as close
    * parentheses.
    */
-  @SuppressWarnings("index") // format_esc returns an array of length 2 greater than its input
+  @SuppressWarnings("value") // format_esc returns an array of length 2 greater than its input
   public static String /*@ArrayLen({3,4})*/[] esc_quantify(
       boolean elementwise, VarInfo /*@ArrayLen({1,2})*/... vars) {
 
@@ -3696,7 +3696,7 @@ public final /*@Interned*/ class VarInfo implements Cloneable, Serializable {
         vin[ii] = vars[ii].var_info_name; // vin ok
       }
 
-      @SuppressWarnings("index") // relative array length
+      @SuppressWarnings("value") // relative array length
       String /*@ArrayLen({3,4,5,6})*/[] result =
           VarInfoName.QuantHelper.format_simplify(
               vin,
