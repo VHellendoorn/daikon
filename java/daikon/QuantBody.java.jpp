@@ -1218,7 +1218,7 @@ The "defined(INT)" test ensures that it only appears once in the output.
     return true;
   }
 #else
-  @SuppressWarnings("index") // Needs @EnsuresQualifierIf with arguments, for sameLength's args
+  @SuppressWarnings("index") // https://tinyurl.com/cfissue/1606: EnsuresQualifierIf with args
   /*@EnsuresNonNullIf(result=true, expression={"#1","#2"})*/
   /*@Pure*/
   public static boolean pairwiseEqual(_TYPE /*@Nullable*/ [] seq1, _TYPE /*@Nullable*/ [] seq2) {
