@@ -2452,8 +2452,9 @@ build everything to be distributed and copy it to the temporary staging area
 
 @example
 mkdir -p /tmp/$USER
-rm -rf /tmp/$USER/stage-daikon
-git clone --depth 3 https://github.com/codespecs/daikon /tmp/$USER/stage-daikon
+cd /tmp/$USER
+rm -rf stage-daikon
+git clone --depth 3 https://github.com/codespecs/daikon stage-daikon
 cd /tmp/$USER/stage-daikon
 export DAIKONDIR=`pwd`
 export JAVA_HOME=/homes/gws/markro/jdk8
