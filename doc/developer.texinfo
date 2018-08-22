@@ -2438,6 +2438,9 @@ make update-and-commit-version
 @need 1000
 @item
 It is important to build the release candidate from a clean enlistment.
+(TODO: In the future, do all release-related work on a branch.
+Otherwise, use of the below commands requires committing changes to master,
+and there might be many commits if there is trouble with the release.)
 This is to ensure we are testing only the files intended for release and
 that those files are the same as a user would receive with a clone of
 the repository. This needs to be done in a separate, new Bash command
